@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>TIC Tac Toe</title>
+        
+        <meta name="author" content="Gaming Flash#6019 -discord"/>
+        <meta charset="utf-8"/>
+        <meta name="keywords" content="tic-tac-to, tic-tac-toe, x o game, cross game, three in a row , 3 in a row game, connect 3, connect three" />
+        <meta name="description" content="A simple Tic tac toe game made by Flash" />
+        <meta name="viewport" content="width=decive-width,initial-scale=1.0" />
+        
+        <meta property="og:title" content="Tic tac toe game" />
+		<meta property="og:description" content="Just a simple tic tac to game to play with friends!!" />
+		<meta property="og:image" content="https://Flash073.github.io/status-logo.png" />
+        
+        <!-- Font from internet -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Explora&display=swap" />
+                 <!-- -->
+        <style>
+            * {
+                user-select:none;
+            }
+            
+            .main-body > h1 {
+            	color:white;
+            }
+            
+            body {
+            	/*
+                background-color:#F1F1F1;
+                */
+                background:url("images/1.jpg");
+                background-repeat:no-repeat;
+                background-size:cover;
+                background-position:center;
+                background-attachment:fixed
+            }
+            
+            
+            .main-body {
+                margin:20px 5px 5px 5px;
+                padding:10px;
+                background-color:rgba(0,0,0,0.455);
+                border-top-left-radius:23px;
+                border-bottom-right-radius:23px;
+                box-shadow:0 0 8px black;
+            }
+            
+            .player-panel {
+                margin:5px;
+                padding:5px;
+                border-radius:5px;
+            }
+            
+            .text {
+            	border:none;
+            	color:#677cdd;
+            	font-weight:bold;
+            	background-color:white;
+            	width:8em;
+            	text-align: center;
+            	vertical-align: middle;
+            	font-size:15px;
+            }
+            
+            td {
+            	text-align:center;
+            	border-radius:2px;
+            	background-color: white;
+            	font-size:20px;
+            }
+            
+            .inline {
+            	display:inline;
+            }
+            
+            
+            
+            /*==================================*/
+            
+            .game-panel-main {
+                display:flex;
+                justify-content:center;
+            }
+            .game-panel {
+                margin:5px;
+                padding:15px;
+                border-radius:23px;
+                background-color: white;
+                border:2px solid rgb(142,142,142);
+                display:inline-block;
+            }
+            
+            .game-grid {
+                display:grid;
+                grid-template: repeat(3 ,1fr) / repeat(3 ,1fr );
+                gap:5px;
+                width:264px;
+                height:264px;
+                padding:5px;
+                background-color:#2D3E50;
+                border-radius:7px;
+            }
+            
+            .cells {
+                font-size:2em;
+                font-weight:bold;
+                background-color:#34495E;
+                font-family:Helvetica;
+                color:white;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                user-select:none;
+            }
+            
+            /*=======/ result style /=====*/
+            .result-div-align {
+                display:flex;
+                justify-content:center;
+                align-items: center;
+                
+                position:fixed;
+                top:0px;
+                left:0px;
+                width:100vw;
+                height:100vh;
+            }
+            .result-div {
+                padding:18px 40px;
+                background-color:white;
+                color:black;
+                border-radius:30px;
+                display:inline-block;
+                border:black 2px solid;
+                background-color:#f0f0f0;
+                
+                box-shadow:0px 0px 0px 200vw rgba(56,56,56,0.7);
+                
+            }
+            
+            .result-title {
+                text-align:center;
+                font-family:cursive;
+                font-size:3em;
+            }
+            
+            .result-text {
+                font-family:"Explora",sans-serif;
+                font-size:40px;
+                letter-spacing: 2.2px;
+                text-align:center;
+                font-weight:bold;
+                display:inline-block;
+                margin-top:-20px;
+            }
+            
+            .wname {
+                color:rgb(117,23,177);
+                text-shadow: 0 0 6px rgba(35, 173, 278, 1);
+            }
+            
+            /*=======/ result style /=====*/
+            
+            .clearbtn {
+            	display:flex;
+            	align-items:center;
+            	justify-content:center;
+            }
+            
+            .cbtn {
+            	font-family:sans-serif;
+            	font-size:25px;
+            	border:1px solid cyan;
+            	padding:5px 20px;
+            	border-radius:15px;
+            	font-weight:bold;
+            	color:white;
+            	/*
+            	background-color: rgb(223, 58, 78);
+            	*/
+            	background-color: black;
+            }
+            
+            .cbtn:hover {
+            	box-shadow: 0 0 8px rgba(35, 173, 278, 1);
+            }
+            
+        </style>
+    </head>
+    
+    <body >
+        <div class="main-body">
+            <br/>
+            <h1 align="center">Tic - tac - toe</h1><br/>
+            
+            <!--===/ Player panel /===-->
+            <div class="player-panel">
+            	
+            	<table align="center">
+            		<tr>
+            			<td>
+            				<input type="text" class="text" maxlength="10" id="px" value="player x" />
+            			</td>
+            			<td>
+            				<input type="text" class="text" maxlength="10" id="po" value="player o" /><br/>
+            			</td>
+            		</tr>
+            		<tr>
+            			<td>
+            				<p id="sp1" class="inline">0</p>
+            			</td>
+            			<td>
+            				<p id="sp2" class="inline">0</p>
+            			</td>
+            		</tr>
+            	</table>
+                
+            </div>
+          
+            
+            <!--===/ Game panel /===-->
+            <div class="game-panel-main">
+                <div class="game-panel">
+	                <div class="game-grid">
+	                    
+	                    <div class="cells" id="s1" onClick="cs1();win()"></div>
+	                    <div class="cells" id="s2" onClick="cs2();win()"></div>
+	                    <div class="cells" id="s3" onClick="cs3();win()"></div>
+	                    <div class="cells" id="s4" onClick="cs4();win()"></div>
+	                    <div class="cells" id="s5" onClick="cs5();win()"></div>
+	                    <div class="cells" id="s6" onClick="cs6();win()"></div>
+	                    <div class="cells" id="s7" onClick="cs7();win()"></div>
+	                    <div class="cells" id="s8" onClick="cs8();win()"></div>
+	                    <div class="cells" id="s9" onClick="cs9();win()"></div>
+	                    
+	                </div>
+	            </div>
+            </div>
+            <br/>
+            
+            <!--===/ Game panel /===-->
+            
+            <div class="clearbtn" style="display:none;" id="clearbtndiv">
+            	<input type="button" class="cbtn" value="clear" onClick="clearall()" />
+            </div>
+            
+        </div>
+        
+        <br/>
+        
+        
+        <div class="result-div-align" style="display:none;" id="rdiv">
+	        <div class="result-div" onClick="hide();">
+	            <h1 class="result-title" id="messaget">Congratulations</h1>
+	            <p class="result-text" id="message">Devloper won!</p>
+	        </div>
+        </div>
+        
+        
+        
+        <script type="text/javascript">
+            var ic=1;
+            
+            
+            
+            {
+            function cs1(){
+                s1.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s1").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s1").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs2(){
+                s2.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s2").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s2").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs3(){
+                s3.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s3").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s3").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs4(){
+                s4.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s4").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s4").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs5(){
+                s5.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s5").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s5").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs6(){
+                s6.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s6").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s6").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs7(){
+                s7.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s7").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s7").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs8(){
+                s8.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s8").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s8").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            
+            function cs9(){
+                s9.removeAttribute("onClick");
+                if(ic==1)
+                {
+                    document.getElementById("s9").innerHTML = "x";
+                    ic=0;
+                }
+                else
+                {
+                    document.getElementById("s9").innerHTML = "o";
+                    ic=1;
+                }
+            }
+            }
+            
+            /*====/ Result System /===*/
+            
+            function win()
+            {
+                
+            /*===/ x win /===*/
+            {
+                if(
+                    (s1.innerHTML=="x" && s2.innerHTML=="x" && s3.innerHTML=="x")
+                    || (s4.innerHTML=="x" && s5.innerHTML=="x" && s6.innerHTML=="x") 
+                    || (s7.innerHTML=="x" && s8.innerHTML=="x" && s9.innerHTML=="x")
+                    || (s1.innerHTML=="x" && s4.innerHTML=="x" && s7.innerHTML=="x")
+                    || (s2.innerHTML=="x" && s5.innerHTML=="x" && s8.innerHTML=="x") 
+                    || (s3.innerHTML=="x" && s6.innerHTML=="x" && s9.innerHTML=="x")
+                    || (s1.innerHTML=="x" && s5.innerHTML=="x" && s9.innerHTML=="x")
+                    || (s3.innerHTML=="x" && s5.innerHTML=="x" && s7.innerHTML=="x")
+                    )
+                    {
+                    	ic=1;
+                    document.getElementById("message"). innerHTML = "<span class=wname >" +px.value+ "</span> won the match!";
+                    document.getElementById("rdiv").removeAttribute("style");
+                    dibtn();
+                    document.getElementById("sp1"). innerHTML = Number(document.getElementById("sp1").innerHTML) + 1 ;
+	            	document.getElementById("clearbtndiv").removeAttribute("style");
+                    window.setTimeout( function() {document.getElementById("rdiv").setAttribute("style","display:none;")},3000);
+                    return;
+                    }
+            }
+                
+            /*===/ o win /===*/
+            {
+                if(
+                    (s1.innerHTML=="o" && s2.innerHTML=="o" && s3.innerHTML=="o")
+                    || (s4.innerHTML=="o" && s5.innerHTML=="o" && s6.innerHTML=="o") 
+                    || (s7.innerHTML=="o" && s8.innerHTML=="o" && s9.innerHTML=="o")
+                    || (s1.innerHTML=="o" && s4.innerHTML=="o" && s7.innerHTML=="o")
+                    || (s2.innerHTML=="o" && s5.innerHTML=="o" && s8.innerHTML=="o") 
+                    || (s3.innerHTML=="o" && s6.innerHTML=="o" && s9.innerHTML=="o")
+                    || (s1.innerHTML=="o" && s5.innerHTML=="o" && s9.innerHTML=="o")
+                    || (s3.innerHTML=="o" && s5.innerHTML=="o" && s7.innerHTML=="o")
+                    )
+                    {
+                    	ic=1;
+                    document.getElementById("message"). innerHTML = "<span class=wname >" +po.value+ "</span> won the match!";
+                    document.getElementById("rdiv").removeAttribute("style");
+                    dibtn();
+                    document.getElementById("sp2"). innerHTML = Number(document.getElementById("sp2").innerHTML) + 1 ;
+	            	document.getElementById("clearbtndiv").removeAttribute("style");
+                    window.setTimeout( function() {document.getElementById("rdiv").setAttribute("style","display:none;")},3000);
+                    return ;
+                    }
+            }
+            
+            /*===/ tie /===*/
+            {
+                if(s1.innerHTML!="" && s2.innerHTML!="" && s3.innerHTML!="" && s4.innerHTML!="" && s5.innerHTML!="" && s6.innerHTML!="" && s7.innerHTML!="" && s8.innerHTML!="" && s9.innerHTML!="")
+                {
+                	ic=1;
+                    document.getElementById("rdiv").removeAttribute("style");
+	            	document.getElementById("clearbtndiv").removeAttribute("style");
+                    document.getElementById("message"). innerHTML = "<span class=wname >Better luck next time</span>";
+                    document.getElementById("messaget"). innerHTML = "Tie";
+                    window.setTimeout( function() {document.getElementById("rdiv").setAttribute("style","display:none;")},3000);
+                }
+            }
+            
+            }
+            
+            function dibtn()
+            {
+            //== disable buttons on win
+                s1.removeAttribute("onClick");
+                s2.removeAttribute("onClick");
+                s3.removeAttribute("onClick");
+                s4.removeAttribute("onClick");
+                s5.removeAttribute("onClick");
+                s6.removeAttribute("onClick");
+                s7.removeAttribute("onClick");
+                s8.removeAttribute("onClick");
+                s9.removeAttribute("onClick");
+            }
+            
+            function hide() {
+                document.getElementById("rdiv").setAttribute("style","display:none;");
+            }
+            
+            function clearall() {
+            	
+                s1.setAttribute("onClick","cs1();win()" );
+                s2.setAttribute("onClick","cs2();win()" );
+                s3.setAttribute("onClick","cs3();win()" );
+                s4.setAttribute("onClick","cs4();win()" );
+                s5.setAttribute("onClick","cs5();win()" );
+                s6.setAttribute("onClick","cs6();win()" );
+                s7.setAttribute("onClick","cs7();win()" );
+                s8.setAttribute("onClick","cs8();win()" );
+                s9.setAttribute("onClick","cs9();win()" );
+            	
+            	
+                document.getElementById("s1"). innerHTML = "";
+                document.getElementById("s2"). innerHTML = "";
+                document.getElementById("s3"). innerHTML = "";
+                document.getElementById("s4"). innerHTML = "";
+                document.getElementById("s5"). innerHTML = "";
+                document.getElementById("s6"). innerHTML = "";
+                document.getElementById("s7"). innerHTML = "";
+                document.getElementById("s8"). innerHTML = "";
+                document.getElementById("s9"). innerHTML = "";
+                
+                document.getElementById("clearbtndiv"). setAttribute("style","display:none;");
+            }
+            
+        </script>
+        
+        
+    </body>
+</html>
