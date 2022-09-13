@@ -34,7 +34,7 @@
             	/*
                 background-color:#F1F1F1;
                 */
-                background:url("1.jpg");
+                background:url("images/1.jpg");
                 background-repeat:no-repeat;
                 background-size:cover;
                 background-position:center;
@@ -278,7 +278,7 @@
         
         
         <script type="text/javascript">
-            var ic=1;
+            var ic=1 , icd=1 ;
             
             
             
@@ -428,7 +428,14 @@
                     || (s3.innerHTML=="x" && s5.innerHTML=="x" && s7.innerHTML=="x")
                     )
                     {
-                    	ic=1;
+                        if(icd==1){
+                            ic=0;
+                            icd=0;
+                        }
+                        else {
+                            ic=1;
+                            icd=1;
+                        }
                     document.getElementById("message"). innerHTML = "<span class=wname >" +px.value+ "</span> won the match!";
                     document.getElementById("messaget").innerHTML = "Congratulations";
                     document.getElementById("rdiv").removeAttribute("style");
@@ -453,7 +460,14 @@
                     || (s3.innerHTML=="o" && s5.innerHTML=="o" && s7.innerHTML=="o")
                     )
                     {
-                    	ic=1;
+                    	if(icd==1){
+                            ic=0;
+                            icd=0;
+                        }
+                        else {
+                            ic=1;
+                            icd=1;
+                        }
                     document.getElementById("message"). innerHTML = "<span class=wname >" +po.value+ "</span> won the match!";
                     document.getElementById("messaget").innerHTML = "Congratulations";
                     document.getElementById("rdiv").removeAttribute("style");
@@ -469,7 +483,14 @@
             {
                 if(s1.innerHTML!="" && s2.innerHTML!="" && s3.innerHTML!="" && s4.innerHTML!="" && s5.innerHTML!="" && s6.innerHTML!="" && s7.innerHTML!="" && s8.innerHTML!="" && s9.innerHTML!="")
                 {
-                	ic=1;
+                	if(icd==1){
+                            ic=0;
+                            icd=0;
+                        }
+                        else {
+                            ic=1;
+                            icd=1;
+                        }
                     document.getElementById("rdiv").removeAttribute("style");
 	            	document.getElementById("clearbtndiv").removeAttribute("style");
                     document.getElementById("message"). innerHTML = "<span class=wname >Better luck next time</span>";
